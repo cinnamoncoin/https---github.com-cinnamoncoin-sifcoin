@@ -96,6 +96,7 @@ void Shutdown()
     RenameThread("bitcoin-shutoff");
     nTransactionsUpdated++;
     StopRPCThreads();
+	ShutdownRPCMining();
     bitdb.Flush(false);
     StopNode();
     {
@@ -1080,7 +1081,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     printf("mapAddressBook.size() = %"PRIszu"\n",  pwalletMain->mapAddressBook.size());
 
     StartNode(threadGroup);
-
+    InitRPCMining();
     if (fServer)
         StartRPCThreads();
 
